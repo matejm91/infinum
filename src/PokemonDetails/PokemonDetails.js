@@ -11,7 +11,8 @@ class PokemonDetails extends React.Component {
     this.id = this.props.match.params.id;
     this.state = {
       pokemon: null,
-      display: false
+      displayMoves: false,
+      displayCaugth: false
     };
   }
 
@@ -26,19 +27,30 @@ class PokemonDetails extends React.Component {
       });
   }
 
+  /**
+   * It is intentional for user to be able to catch more than one pokemon
+   * because a master is able to have more then 1 pokemon,
+   * but in my pokemons list only one is diplayed
+   **/
+
   catchThisPokemon = () => {
     const myPokemons = localStorage.myPokemons
       .split(',')
       .map(id => parseInt(id));
-    console.log('%c⧭', 'color: #00e600', myPokemons);
     myPokemons.push(this.id);
 
     localStorage.myPokemons = myPokemons;
+    this.showCaughtMessage();
+  };
+
+  showCaughtMessage = () => {
+    // Usually this would be displayed in a nice popup
+    alert('Pokemon caught!');
   };
 
   displayAllMoves = () => {
     this.setState({
-      display: !this.state.display
+      displayMoves: !this.state.displayMoves
     });
   };
 
@@ -47,7 +59,6 @@ class PokemonDetails extends React.Component {
       return null;
     }
     const { pokemon } = this.state;
-    console.log('%c⧭', 'color: #997326', pokemon);
     return (
       <div>
         <Header />
@@ -73,16 +84,6 @@ class PokemonDetails extends React.Component {
                 {ability.ability.name}
               </p>
             ))}
-            <p className="pTags__details">Weight:</p>
-            <hr />
-            <p className="pTags__details detailInformation">
-              {(pokemon.weight * 0.1).toFixed(2)} kg
-            </p>
-            <p className="pTags__details">Height:</p>
-            <hr />
-            <p className="pTags__details detailInformation">
-              {(pokemon.height * 0.1).toFixed(2)}m
-            </p>
             <p className="pTags__details">Types:</p>
             <hr />
             {pokemon.types.map((type, index) => (
@@ -90,11 +91,27 @@ class PokemonDetails extends React.Component {
                 {type.type.name}
               </p>
             ))}
+            <div className="row sizeDiv">
+              <p className="pTags__details">Weight:</p>
+              <p className="pTags__details detailInformation sizeP">
+                {(pokemon.weight * 0.1).toFixed(2)} kg
+              </p>
+            </div>
+            <div className="row sizeDiv">
+              <p className="pTags__details">Height:</p>
+              <p className="pTags__details detailInformation sizeP">
+                {(pokemon.height * 0.1).toFixed(2)}m
+              </p>
+            </div>
           </div>
           <div className="col-xs-6">
             <p className="pTags__details">Moves:</p>
             <hr />
-            <div style={{ display: `${this.state.display ? 'none' : ''}` }}>
+            <div
+              style={{
+                display: `${this.state.displayMoves ? 'none' : ''}`
+              }}
+            >
               {pokemon.moves.map((move, index) =>
                 index < 20 ? (
                   <p key={index} className="pTags__details detailInformation">
@@ -105,19 +122,27 @@ class PokemonDetails extends React.Component {
                 )
               )}
               {pokemon.moves.length > 20 ? (
-                <p onClick={this.displayAllMoves}>...and more</p>
+                <p className="showHideMoves" onClick={this.displayAllMoves}>
+                  ...and more
+                </p>
               ) : (
                 ''
               )}
             </div>
-            <div style={{ display: `${!this.state.display ? 'none' : ''}` }}>
+            <div
+              style={{
+                display: `${!this.state.displayMoves ? 'none' : ''}`
+              }}
+            >
               {pokemon.moves.map((move, index) => (
                 <p key={index} className="pTags__details detailInformation">
                   {move.move.name}
                 </p>
               ))}
               {pokemon.moves.length > 20 ? (
-                <p onClick={this.displayAllMoves}>Collapse moves</p>
+                <p className="showHideMoves" onClick={this.displayAllMoves}>
+                  Collapse moves
+                </p>
               ) : (
                 ''
               )}

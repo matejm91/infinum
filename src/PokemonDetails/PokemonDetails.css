@@ -19,7 +19,21 @@
 .catchButton {
   margin: 25px auto;
   background-color: red;
-  border: 1px solid black;
+  border: 1px solid white;
   padding: 15px;
   border-radius: 25px;
+}
+
+.sizeP {
+  height: 20px !important;
+  margin: auto 5px !important;
+}
+
+.sizeDiv {
+  margin-top: 20px;
+}
+
+.showHideMoves {
+  text-decoration: underline;
+  color: blue;
 }
