@@ -1,0 +1,18 @@
+.pokemonNameDiv {
+  margin: auto;
+}
+
+.pokemonName {
+  font-size: 20px;
+}
+
+.moreInfo {
+  font-size: 12px;
+  font-style: oblique;
+  margin-top: 0px;
+  text-align: center;
+}
+
+.row {
+  margin: 0;
+}

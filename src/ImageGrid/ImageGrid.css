@@ -1,0 +1,11 @@
+.imageGridRow {
+  position: relative;
+}
+
+.imageLeft {
+  margin: auto;
+}
+
+.imageRight {
+  margin: auto;
+}

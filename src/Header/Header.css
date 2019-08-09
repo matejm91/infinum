@@ -1,0 +1,8 @@
+.menuBar {
+  background-color: red;
+  height: 40px;
+}
+
+.menuBarItem {
+  margin: auto;
+}
