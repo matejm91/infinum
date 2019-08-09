@@ -12,7 +12,7 @@ class PokemonDetails extends React.Component {
     this.state = {
       pokemon: null,
       displayMoves: false,
-      displayCaugth: false
+      isCaugth: false
     };
   }
 
@@ -25,13 +25,16 @@ class PokemonDetails extends React.Component {
           pokemonDetails.name.substring(1);
         this.setState({ pokemon: pokemonDetails });
       });
-  }
 
-  /**
-   * It is intentional for user to be able to catch more than one pokemon
-   * because a master is able to have more then 1 pokemon,
-   * but in my pokemons list only one is diplayed
-   **/
+    const myPokemons = localStorage.myPokemons
+      .split(',')
+      .map(id => parseInt(id));
+    if (myPokemons.includes(parseInt(this.id))) {
+      this.setState({
+        isCaugth: true
+      });
+    }
+  }
 
   catchThisPokemon = () => {
     const myPokemons = localStorage.myPokemons
@@ -43,9 +46,27 @@ class PokemonDetails extends React.Component {
     this.showCaughtMessage();
   };
 
+  letGoThisPokemon = () => {
+    const myPokemons = localStorage.myPokemons
+      .split(',')
+      .map(id => parseInt(id));
+
+    myPokemons.splice(myPokemons.indexOf(parseInt(this.id)), 1);
+
+    localStorage.myPokemons = myPokemons;
+    this.showLetGoMessage();
+  };
+
   showCaughtMessage = () => {
+    this.setState({ isCaugth: true });
     // Usually this would be displayed in a nice popup
     alert('Pokemon caught!');
+  };
+
+  showLetGoMessage = () => {
+    this.setState({ isCaugth: false });
+    // Usually this would be displayed in a nice popup
+    alert('You let him go');
   };
 
   displayAllMoves = () => {
@@ -150,9 +171,26 @@ class PokemonDetails extends React.Component {
           </div>
         </div>
         <div className="row">
-          <button className="catchButton" onClick={this.catchThisPokemon}>
-            Catch this pokemon!
-          </button>
+          <div
+            className="catchRow"
+            style={{
+              display: `${this.state.isCaugth ? 'none' : ''}`
+            }}
+          >
+            <button className="catchButton" onClick={this.catchThisPokemon}>
+              Catch pokemon
+            </button>
+          </div>
+          <div
+            className="catchRow"
+            style={{
+              display: `${!this.state.isCaugth ? 'none' : ''}`
+            }}
+          >
+            <button className="catchButton" onClick={this.letGoThisPokemon}>
+              Let go pokemon
+            </button>
+          </div>
         </div>
       </div>
     );

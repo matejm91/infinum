@@ -37,3 +37,7 @@
   text-decoration: underline;
   color: blue;
 }
+
+.catchRow {
+  margin: auto;
+}
