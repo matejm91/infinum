@@ -26,6 +26,9 @@ class PokemonDetails extends React.Component {
         this.setState({ pokemon: pokemonDetails });
       });
 
+    if (localStorage.myPokemons === undefined) {
+      localStorage.myPokemons = '';
+    }
     const myPokemons = localStorage.myPokemons
       .split(',')
       .map(id => parseInt(id));
