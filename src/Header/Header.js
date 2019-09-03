@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 
 function Header() {
   return (
     <div className="row menuBar">
-      <a href="/" className="linkDiv menuBarItem">
+      <Link to="/" className="linkDiv menuBarItem">
         <div className="col-xs-12">Pokemons</div>
-      </a>
-      <a href="/myPokemons" className="linkDiv menuBarItem">
+      </Link>
+      <Link to="/myPokemons" className="linkDiv menuBarItem">
         <div className="col-xs-12">My pokemons</div>
-      </a>
+      </Link>
     </div>
   );
 }

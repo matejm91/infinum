@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import ImageGrid from '../ImageGrid/ImageGrid';
 import './Pokemon.css';
@@ -29,7 +30,7 @@ class Pokemon extends React.Component {
     }
     return (
       <div>
-        <a className="linkDiv" href={`/pokemon/${this.props.id}`}>
+        <Link className="linkDiv" to={`/pokemon/${this.props.id}`}>
           <div className="row">
             <div className="col-xs-4 pokemonNameDiv">
               <div>Pokename:</div>
@@ -43,7 +44,7 @@ class Pokemon extends React.Component {
             </div>
           </div>
           <p className="moreInfo">Click for more info</p>
-        </a>
+        </Link>
         <hr />
       </div>
     );
